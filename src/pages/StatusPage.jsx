@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Info } from "lucide-react";
-import { Tooltip } from "./Tooltip"; // Assume this is a working custom tooltip component
+import { Tooltip } from "./Tooltip"; 
 import axios from "axios";
-import {LATEST_STATUS_URL,STATUS_HISTORY_URL } from "../lib/config"
+import {LATEST_STATUS_URL,STATUS_HISTORY_URL } from "../lib/config";
+
 const StatusPage = () => {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -56,9 +57,11 @@ const StatusPage = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <p>Loading service status...</p>
-      </div>
+  <div className="flex flex-col items-center justify-center min-h-screen space-y-4">
+  <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+  <p className="text-gray-700 text-lg font-medium">Loading service status...</p>
+</div>
+
     );
   }
 
