@@ -7,13 +7,11 @@ import Logo from "../assets/logo.png"
 
 const StatusPage = () => {
   const [services, setServices] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [status, setstatus] = useState();
 
   // Auto refresh every 5 minutes
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
       try {
         const { data } = await axios.get(LATEST_STATUS_URL);
         setServices(data.services);
@@ -21,9 +19,7 @@ const StatusPage = () => {
         setstatus({systemStatus: data.systemStatus, statusColor: data.statusColor})
       } catch (error) {
         console.error("Failed to fetch services:", error);
-      } finally {
-        setLoading(false);
-      }
+      } 
     };
 
     const interval = setInterval(fetchData, 5 * 60 * 1000);
@@ -52,17 +48,6 @@ const StatusPage = () => {
       year: "numeric",
     });
   };
-
-  if (loading) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen space-y-4">
-        <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-        <p className="text-gray-700 text-lg font-medium">
-          Loading service status...
-        </p>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-gray-100 pb-4">
