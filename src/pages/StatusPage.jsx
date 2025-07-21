@@ -3,7 +3,8 @@ import { Info, Clock } from "lucide-react";
 import { Tooltip } from "./Tooltip";
 import axios from "axios";
 import { LATEST_STATUS_URL } from "../lib/config";
-import Logo from "../assets/logo.png" 
+import Logo from "../assets/logo.png";
+import PastIncidents from "../components/PastIncidents";
 
 const StatusPage = () => {
   const [services, setServices] = useState([]);
@@ -15,11 +16,14 @@ const StatusPage = () => {
       try {
         const { data } = await axios.get(LATEST_STATUS_URL);
         setServices(data.services);
-        console.log(data)
-        setstatus({systemStatus: data.systemStatus, statusColor: data.statusColor})
+        console.log(data);
+        setstatus({
+          systemStatus: data.systemStatus,
+          statusColor: data.statusColor,
+        });
       } catch (error) {
         console.error("Failed to fetch services:", error);
-      } 
+      }
     };
 
     const interval = setInterval(fetchData, 5 * 60 * 1000);
@@ -53,8 +57,8 @@ const StatusPage = () => {
     <div className="min-h-screen bg-gray-100 pb-4">
       {/* Hero Section */}
       <section className="flex flex-col items-center justify-center h-[300px] bg-[#2c2c2c]">
-        <h1 className="text-[#b79045] font-extrabold text-4xl md:text-6xl flex items-center " >
-         <img src={Logo} alt="Weem Logo" className="w-30"/> Weeam
+        <h1 className="text-[#b79045] font-extrabold text-4xl md:text-6xl flex items-center ">
+          <img src={Logo} alt="Weem Logo" className="w-30" /> Weeam
         </h1>
       </section>
 
@@ -165,6 +169,8 @@ const StatusPage = () => {
             </div>
           ))}
         </div>
+
+        <PastIncidents />
       </section>
     </div>
   );
