@@ -12,7 +12,6 @@ const ManageIncidents = () => {
   const [updates, setUpdates] = useState([
     { status: 'No Incident', message: 'No incidents reported' }
   ]);
-  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,11 +53,9 @@ const ManageIncidents = () => {
         setTitle('');
         setUpdates([{ status: 'No Incident', message: 'No incidents reported' }]);
       }
-      setIsLoading(false);
     } catch (err) {
       console.error('Failed to fetch incident:', err);
       toast.error('Failed to fetch incident data');
-      setIsLoading(false);
     }
   };
 
@@ -117,8 +114,6 @@ const ManageIncidents = () => {
       }
     }
   };
-
-  if (isLoading) return <div>Loading...</div>;
 
   return (
     <div className="container mx-auto p-4 max-w-4xl">
